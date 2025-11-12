@@ -1,2 +1,2 @@
 # Kingdomino
-Projet Informatique S1
+Projet Informatique S1, DEROO Matthieu, PILLI Clement
