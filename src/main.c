@@ -7,7 +7,7 @@
 
 int main(int argc, char *argv[]) {
     Render_InitVideo();
-    SDL_Window *window = Render_Creat_Window("Kingdomino", 1280, 720);
+    SDL_Window *window = Render_Creat_Window("Kingdomino", 1280, 720); //crée la fenetre
     Render_AfficherLobby(window);
     SDL_DestroyWindow(window);
     SDL_Quit();
