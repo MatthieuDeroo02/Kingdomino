@@ -1,24 +1,42 @@
+# Compilation
 CC = gcc
 CFLAGS = -Wall -Iinclude
-LDFLAGS = -Llib -lmingw32 -lSDL3
 
+# Linkage
+LDFLAGS = -Llib -lmingw32 -lSDL3 -lSDL3_image
+
+# Fichiers
 TARGET = kingdomino
 SRC = $(wildcard src/*.c)
 OBJ = $(SRC:src/%.c=build/%.o)
 
-ICON_RC = icon.rc
-ICON_OBJ = build/icon.o
+# Ressources icône
+ICON_RC = assets/images/icon.rc
+ICON_OBJ = build/icon.res
 
-all: $(TARGET)
+# Dossier de sortie
+BIN = bin
+EXE = $(BIN)/$(TARGET).exe
 
-$(TARGET): $(OBJ) $(ICON_OBJ)
-	$(CC) $(OBJ) $(ICON_OBJ) -o $(TARGET).exe $(LDFLAGS)
+# Règle principale
+all: $(BIN) $(EXE)
 
+# Créer le dossier bin si nécessaire
+$(BIN):
+	mkdir -p $(BIN)
+
+# Générer l'exécutable dans bin/
+$(EXE): $(OBJ) $(ICON_OBJ)
+	$(CC) $(OBJ) $(ICON_OBJ) -o $@ $(LDFLAGS)
+
+# Compilation des fichiers .c en .o
 build/%.o: src/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
+# Compilation du fichier .rc en .res
 $(ICON_OBJ): $(ICON_RC)
-	windres $< -o $@
+	windres $< -O coff -o $@
 
+# Nettoyage
 clean:
-	del /Q build\*.o *.exe
+	rm -rf build/*.o build/*.res $(EXE)
