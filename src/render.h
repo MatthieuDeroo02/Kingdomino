@@ -4,6 +4,7 @@
 #include <SDL3/SDL.h>
 #include <SDL3_image/SDL_image.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "game.h"
 
 typedef struct{
@@ -30,5 +31,9 @@ void Render_AfficherLobby(SDL_Window *window);
 T_Button Render_AddButton(SDL_Renderer *renderer, const char *cheminImage, float sizeX, float sizeY, float positionX, float positionY);
 /*Returne true si le Button est survolé*/
 bool Render_ButtonOverhead(T_Button button);
+//*Change la taille et la position d'un bouton*/
+void Render_ChangeSizeAndPosition(T_Button *button, float sizeX, float sizeY, float positionX, float positionY);
+/*Augmente la taille et ajuste la position selon le facteur de grossissement*/
+void Render_IncreasesButtonSize(T_Button *button, float factor);
 
 #endif
