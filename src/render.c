@@ -57,9 +57,11 @@ void Render_AfficherLobby(SDL_Window *window) {
     SDL_Renderer *renderer = Render_CreatRenderer(window); //Crée le moteur graphique du lobby
     SDL_Texture *fond = Render_LoadAndConvertImage("assets/images/fond_ecran_lobby2.bmp", window, renderer); //Crée la texture du fond d'ecran
 
-    T_Button Button2Player = Render_AddButton(renderer, "assets/images/Button2player.png", 350, 510, 0, 0); //Importe les Buttons utilisé lors
-    T_Button Button3Player = Render_AddButton(renderer, "assets/images/Button3player.png", 350, 510, 0, 0);
-    T_Button Button4Player = Render_AddButton(renderer, "assets/images/Button4player.png", 350, 510, 0, 0);
+    int largeur, hauteur;
+    SDL_GetRenderOutputSize(renderer, &largeur, &hauteur);
+    T_Button Button2Player = Render_AddButton(renderer, "assets/images/Button2player.png", 0.281*largeur, 0.417*hauteur, 0.117*largeur, 0.303*hauteur); //Importe les Buttons utilisé lors
+    T_Button Button3Player = Render_AddButton(renderer, "assets/images/Button3player.png", 0.441*largeur, 0.417*hauteur, 0.117*largeur, 0.303*hauteur);
+    T_Button Button4Player = Render_AddButton(renderer, "assets/images/Button4player.png", 0.602*largeur, 0.417*hauteur, 0.117*largeur, 0.303*hauteur);
 
 
     int running = 1;
@@ -70,14 +72,9 @@ void Render_AfficherLobby(SDL_Window *window) {
                 running = 0;
             }
         }
-
-        int largeur, hauteur;
         SDL_GetRenderOutputSize(renderer, &largeur, &hauteur);
-
-
-        //SDL_FRect Button2Player ={ 0.281*largeur, 0.417*hauteur, 0.117*largeur, 0.303*hauteur};
-        //SDL_FRect Button3Player ={ 0.441*largeur, 0.417*hauteur, 0.117*largeur, 0.303*hauteur};
-        //SDL_FRect Button4Player ={ 0.602*largeur, 0.417*hauteur, 0.117*largeur, 0.303*hauteur};
+        
+        
 
 
         SDL_RenderClear(renderer);
