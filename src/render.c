@@ -90,6 +90,7 @@ void Render_AfficherLobby(SDL_Window *window) {
         printf("posY : %3.f; ", button2Player.rectangle.y);
         printf("sizeX : %3.f; ", button2Player.rectangle.w);
         printf("sizeY : %3.f\n", button2Player.rectangle.h);
+        printf("chemin image : %s", button2Player.cheminImage);
 
         SDL_RenderClear(renderer);
         SDL_RenderTexture(renderer, fond, NULL, NULL);  // dessine l'image en plein écran
@@ -105,7 +106,7 @@ void Render_AfficherLobby(SDL_Window *window) {
 }
 
 
-T_Button Render_AddButton(SDL_Renderer *renderer, const char *cheminImage, float sizeX, float sizeY, float positionX, float positionY) {
+T_Button Render_AddButton(SDL_Renderer *renderer, char *cheminImage, float sizeX, float sizeY, float positionX, float positionY) {
     T_Button button;
     button.overhead = 0;
     button.cheminImage = cheminImage;
