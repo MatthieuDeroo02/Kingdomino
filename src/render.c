@@ -59,12 +59,12 @@ void Render_AfficherLobby(SDL_Window *window) {
 
     int largeur, hauteur;
     SDL_GetRenderOutputSize(renderer, &largeur, &hauteur);
-    T_Button button2Player = Render_AddButton(renderer, "assets/images/Button2player.png", 0.281*largeur, 0.417*hauteur, 0.117*largeur, 0.303*hauteur); //Importe les Buttons utilisé lors
-    T_Button button3Player = Render_AddButton(renderer, "assets/images/Button3player.png", 0.441*largeur, 0.417*hauteur, 0.117*largeur, 0.303*hauteur);
-    T_Button button4Player = Render_AddButton(renderer, "assets/images/Button4player.png", 0.602*largeur, 0.417*hauteur, 0.117*largeur, 0.303*hauteur);
-
+    T_Button button2Player = Render_AddButton(renderer, "assets/images/button2player.png", 0.281*largeur, 0.417*hauteur, 0.117*largeur, 0.303*hauteur); //Importe les Buttons utilisé lors
+    T_Button button3Player = Render_AddButton(renderer, "assets/images/button3player.png", 0.441*largeur, 0.417*hauteur, 0.117*largeur, 0.303*hauteur);
+    T_Button button4Player = Render_AddButton(renderer, "assets/images/button4player.png", 0.602*largeur, 0.417*hauteur, 0.117*largeur, 0.303*hauteur);
 
     int running = 1;
+
     while (running) {
         SDL_Event event; //Contient les événement SDL
         while (SDL_PollEvent(&event)) { //Remplie avec le prochain evenement
@@ -73,7 +73,7 @@ void Render_AfficherLobby(SDL_Window *window) {
             }
         }
 
-        SDL_GetRenderOutputSize(renderer, &largeur, &hauteur);
+        SDL_GetRenderOutputSize(renderer, &largeur, &hauteur); //Récupère 
         Render_ChangeSizeAndPosition(&button2Player, 0.281*largeur, 0.417*hauteur, 0.117*largeur, 0.303*hauteur);
         Render_ChangeSizeAndPosition(&button3Player, 0.441*largeur, 0.417*hauteur, 0.117*largeur, 0.303*hauteur);
         Render_ChangeSizeAndPosition(&button4Player, 0.602*largeur, 0.417*hauteur, 0.117*largeur, 0.303*hauteur);
@@ -86,11 +86,13 @@ void Render_AfficherLobby(SDL_Window *window) {
             Render_IncreasesButtonSize(&button4Player, 1.2);
         }
         
+        /*
         printf("posX : %3.f; ", button2Player.rectangle.x);
         printf("posY : %3.f; ", button2Player.rectangle.y);
         printf("sizeX : %3.f; ", button2Player.rectangle.w);
         printf("sizeY : %3.f\n", button2Player.rectangle.h);
         printf("chemin image : %s", button2Player.cheminImage);
+        */
 
         SDL_RenderClear(renderer);
         SDL_RenderTexture(renderer, fond, NULL, NULL);  // dessine l'image en plein écran
@@ -106,15 +108,15 @@ void Render_AfficherLobby(SDL_Window *window) {
 }
 
 
-T_Button Render_AddButton(SDL_Renderer *renderer, char *cheminImage, float sizeX, float sizeY, float positionX, float positionY) {
+T_Button Render_AddButton(SDL_Renderer *renderer, const char *cheminImage, float positionX, float positionY, float sizeX, float sizeY) {
     T_Button button;
     button.overhead = 0;
     button.cheminImage = cheminImage;
-    button.rectangle.x = sizeX;
-    button.rectangle.y = sizeY;
-    button.rectangle.w = positionX;
-    button.rectangle.h = positionY;
-    button.texture = IMG_LoadTexture(renderer, cheminImage);
+    button.rectangle.x = positionX;
+    button.rectangle.y = positionY;
+    button.rectangle.w = sizeX;
+    button.rectangle.h = sizeY;
+    button.texture = IMG_LoadTexture(renderer, button.cheminImage);
     return button;
 }
 
@@ -127,20 +129,20 @@ bool Render_ButtonOverhead(T_Button button) {
     return false;
 }
 
-void Render_ChangeSizeAndPosition(T_Button *button, float sizeX, float sizeY, float positionX, float positionY) {
-    button->rectangle.x = sizeX;
-    button->rectangle.y = sizeY;
-    button->rectangle.w = positionX;
-    button->rectangle.h = positionY;
+void Render_ChangeSizeAndPosition(T_Button *button, float positionX, float positionY, float sizeX, float sizeY) {
+    button->rectangle.x = positionX;
+    button->rectangle.y = positionY;
+    button->rectangle.w = sizeX;
+    button->rectangle.h = sizeY;
 }
 
 void Render_IncreasesButtonSize(T_Button *button, float factor) {
-    int tmpX = button->rectangle.x;
-    int tmpY = button->rectangle.y;
+    float tmpSizeX = button->rectangle.w;
+    float tmpSizeY = button->rectangle.h;
 
-    button->rectangle.x *= factor;
-    button->rectangle.y *= factor;
+    button->rectangle.w *= factor;
+    button->rectangle.h *= factor;
 
-    button->rectangle.w += button->rectangle.x - tmpX;
-    button->rectangle.h += button->rectangle.y - tmpY;
+    button->rectangle.x -= (button->rectangle.w - tmpSizeX)/2;
+    button->rectangle.y -= (button->rectangle.h - tmpSizeY)/2;
 }

@@ -8,7 +8,7 @@
 #include "game.h"
 
 typedef struct{
-    char *cheminImage;
+    const char *cheminImage;
     bool overhead;
     SDL_FRect rectangle;
     SDL_Texture *texture;
@@ -28,11 +28,11 @@ SDL_Texture *Render_LoadAndConvertImage(const char *cheminImage, SDL_Window *win
 void Render_AfficherLobby(SDL_Window *window);
 
 /*Crée un Button qui pouras etre utilisé plus tard*/
-T_Button Render_AddButton(SDL_Renderer *renderer, char *cheminImage, float sizeX, float sizeY, float positionX, float positionY);
+T_Button Render_AddButton(SDL_Renderer *renderer, const char *cheminImage, float positionX, float positionY, float sizeX, float sizeY);
 /*Returne true si le Button est survolé*/
 bool Render_ButtonOverhead(T_Button button);
 //*Change la taille et la position d'un bouton*/
-void Render_ChangeSizeAndPosition(T_Button *button, float sizeX, float sizeY, float positionX, float positionY);
+void Render_ChangeSizeAndPosition(T_Button *button, float positionX, float positionY, float sizeX, float sizeY);
 /*Augmente la taille et ajuste la position selon le facteur de grossissement*/
 void Render_IncreasesButtonSize(T_Button *button, float factor);
 
