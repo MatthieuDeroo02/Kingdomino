@@ -24,8 +24,8 @@ SDL_Renderer *Render_CreatRenderer(SDL_Window *window);
 /*Charge et compile une image*/
 SDL_Texture *Render_LoadAndConvertImage(const char *cheminImage, SDL_Window *window, SDL_Renderer *renderer);
 
-/*affiche le lobby*/
-void Render_AfficherLobby(SDL_Window *window);
+/*affiche le lobby et retourne le nombre de joueur choisie*/
+unsigned int Render_AfficherLobby(SDL_Window *window);
 
 /*Crée un Button qui pouras etre utilisé plus tard*/
 T_Button Render_AddButton(SDL_Renderer *renderer, const char *cheminImage, float positionX, float positionY, float sizeX, float sizeY);

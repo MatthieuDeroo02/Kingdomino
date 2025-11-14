@@ -53,7 +53,8 @@ SDL_Texture *Render_LoadAndConvertImage(const char *cheminImage, SDL_Window *win
     return texture;
 }
 
-void Render_AfficherLobby(SDL_Window *window) {
+unsigned int Render_AfficherLobby(SDL_Window *window) {
+    unsigned int nbrJoueurs = 0;
     SDL_Renderer *renderer = Render_CreatRenderer(window); //Crée le moteur graphique du lobby
     SDL_Texture *fond = Render_LoadAndConvertImage("assets/images/fond_ecran_lobby2.bmp", window, renderer); //Crée la texture du fond d'ecran
 
@@ -71,6 +72,13 @@ void Render_AfficherLobby(SDL_Window *window) {
             if (event.type == SDL_EVENT_QUIT) {
                 running = 0;
             }
+            if (event.type == SDL_EVENT_MOUSE_BUTTON_UP) { // Si un des bouton de la souris a été relaché
+                if (event.button.button == SDL_BUTTON_LEFT) { //Si c'est le bouton gauche de la souris
+                    if (Render_ButtonOverhead(button2Player)) {nbrJoueurs = 2;}
+                    else if (Render_ButtonOverhead(button3Player)) {nbrJoueurs = 3;}
+                    else if (Render_ButtonOverhead(button4Player)) {nbrJoueurs = 4;}
+                }
+            }
         }
 
         SDL_GetRenderOutputSize(renderer, &largeur, &hauteur); //Récupère 
@@ -85,14 +93,6 @@ void Render_AfficherLobby(SDL_Window *window) {
         } else if (Render_ButtonOverhead(button4Player)) {
             Render_IncreasesButtonSize(&button4Player, 1.2);
         }
-        
-        /*
-        printf("posX : %3.f; ", button2Player.rectangle.x);
-        printf("posY : %3.f; ", button2Player.rectangle.y);
-        printf("sizeX : %3.f; ", button2Player.rectangle.w);
-        printf("sizeY : %3.f\n", button2Player.rectangle.h);
-        printf("chemin image : %s", button2Player.cheminImage);
-        */
 
         SDL_RenderClear(renderer);
         SDL_RenderTexture(renderer, fond, NULL, NULL);  // dessine l'image en plein écran
@@ -105,6 +105,8 @@ void Render_AfficherLobby(SDL_Window *window) {
 
     SDL_DestroyTexture(fond);
     SDL_DestroyRenderer(renderer);
+
+    return nbrJoueurs;
 }
 
 
@@ -123,7 +125,7 @@ T_Button Render_AddButton(SDL_Renderer *renderer, const char *cheminImage, float
 bool Render_ButtonOverhead(T_Button button) {
     float mouseX, mouseY;
     SDL_GetMouseState(&mouseX, &mouseY);
-    if (button.rectangle.x <= mouseX && mouseX <= button.rectangle.x + button.rectangle.w && button.rectangle.y <= mouseX && mouseY <= button.rectangle.y + button.rectangle.h) {
+    if (button.rectangle.x <= mouseX && mouseX <= button.rectangle.x + button.rectangle.w && button.rectangle.y <= mouseY && mouseY <= button.rectangle.y + button.rectangle.h) {
         return true;
     }
     return false;
