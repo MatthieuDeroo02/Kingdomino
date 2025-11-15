@@ -9,6 +9,13 @@ int main(int argc, char *argv[]) {
     Render_InitVideo();
     SDL_Window *window = Render_Creat_Window("Kingdomino", 1280, 720);
     unsigned int nbrJoueurs = Render_AfficherLobby(window);
+    if (nbrJoueurs == 0) { //
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+        return 0;
+    }
+
+
     printf("Il y a %d Joueurs.\n", nbrJoueurs);
     SDL_DestroyWindow(window);
     SDL_Quit();

@@ -5,6 +5,10 @@
 #include "domino.h"
 #include <stdlib.h>
 
+typedef struct{
+    T_Square *area;
+} T_Area;
+
 
 
 #endif

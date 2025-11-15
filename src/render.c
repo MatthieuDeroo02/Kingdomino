@@ -54,7 +54,6 @@ SDL_Texture *Render_LoadAndConvertImage(const char *cheminImage, SDL_Window *win
 }
 
 unsigned int Render_AfficherLobby(SDL_Window *window) {
-    unsigned int nbrJoueurs = 0;
     SDL_Renderer *renderer = Render_CreatRenderer(window); //Crée le moteur graphique du lobby
     SDL_Texture *fond = Render_LoadAndConvertImage("assets/images/fond_ecran_lobby2.bmp", window, renderer); //Crée la texture du fond d'ecran
 
@@ -64,19 +63,22 @@ unsigned int Render_AfficherLobby(SDL_Window *window) {
     T_Button button3Player = Render_AddButton(renderer, "assets/images/button3player.png", 0.441*largeur, 0.417*hauteur, 0.117*largeur, 0.303*hauteur);
     T_Button button4Player = Render_AddButton(renderer, "assets/images/button4player.png", 0.602*largeur, 0.417*hauteur, 0.117*largeur, 0.303*hauteur);
 
-    int running = 1;
 
-    while (running) {
+    while (true) {
         SDL_Event event; //Contient les événement SDL
         while (SDL_PollEvent(&event)) { //Remplie avec le prochain evenement
             if (event.type == SDL_EVENT_QUIT) {
-                running = 0;
+                return 0;
             }
             if (event.type == SDL_EVENT_MOUSE_BUTTON_UP) { // Si un des bouton de la souris a été relaché
                 if (event.button.button == SDL_BUTTON_LEFT) { //Si c'est le bouton gauche de la souris
-                    if (Render_ButtonOverhead(button2Player)) {nbrJoueurs = 2;}
-                    else if (Render_ButtonOverhead(button3Player)) {nbrJoueurs = 3;}
-                    else if (Render_ButtonOverhead(button4Player)) {nbrJoueurs = 4;}
+                    if (Render_ButtonOverhead(button2Player)) {
+                        return 2;
+                    } else if (Render_ButtonOverhead(button3Player)) {
+                        return 3;
+                    } else if (Render_ButtonOverhead(button4Player)) {
+                        return 4;
+                    }
                 }
             }
         }
@@ -106,7 +108,7 @@ unsigned int Render_AfficherLobby(SDL_Window *window) {
     SDL_DestroyTexture(fond);
     SDL_DestroyRenderer(renderer);
 
-    return nbrJoueurs;
+    return 0;
 }
 
 

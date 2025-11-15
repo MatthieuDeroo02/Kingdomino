@@ -2,10 +2,7 @@
 #define PLAYER_H
 
 #include "domino.h"
-
-typedef struct{
-    T_Square *area;
-} T_Area;
+#include "game.h"
 
 typedef struct{
     T_Area *area;
@@ -13,5 +10,7 @@ typedef struct{
     int  playerNumber;
     char *Name;
 } T_player;
+
+unsigned int Player_GetNbrJoueur();
 
 #endif
