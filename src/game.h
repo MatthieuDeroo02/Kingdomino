@@ -6,7 +6,7 @@
 #include <stdlib.h>
 
 typedef struct{
-    T_Square *area;
+    T_Square *square;
 } T_Area;
 
 
