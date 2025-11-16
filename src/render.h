@@ -25,7 +25,7 @@ SDL_Renderer *Render_CreatRenderer(SDL_Window *window);
 SDL_Texture *Render_LoadAndConvertImage(const char *cheminImage, SDL_Window *window, SDL_Renderer *renderer);
 
 /*affiche le lobby et retourne le nombre de joueur choisie*/
-unsigned int Render_AfficherLobby(SDL_Window *window);
+unsigned int Render_AfficherLobby(SDL_Window *window, SDL_Renderer *renderer);
 
 /*Crée un Button qui pouras etre utilisé plus tard*/
 T_Button Render_AddButton(SDL_Renderer *renderer, const char *cheminImage, float positionX, float positionY, float sizeX, float sizeY);
@@ -35,5 +35,7 @@ bool Render_ButtonOverhead(T_Button button);
 void Render_ChangeSizeAndPosition(T_Button *button, float positionX, float positionY, float sizeX, float sizeY);
 /*Augmente la taille et ajuste la position selon le facteur de grossissement*/
 void Render_IncreasesButtonSize(T_Button *button, float factor);
+/*passe du lobby au plateau de jeu*/
+void Render_StartGame(SDL_Window *window, SDL_Renderer *renderer, unsigned int nbrJoueurs);
 
 #endif
