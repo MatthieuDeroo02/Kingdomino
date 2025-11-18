@@ -13,3 +13,5 @@ git checkout -b -> cree une branche
 git add ./ -> ajoute tout les fichier ds la branche
 
 git commit -m " " -> message pour le commit
+
+git push -> envoye sur github
