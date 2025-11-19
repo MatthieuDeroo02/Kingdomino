@@ -13,9 +13,9 @@ typedef struct{
 
 typedef struct{
     T_Area *area;
-    int points;
-    int  playerNumber;
-    char *Name;
+    unsigned int points;
+    unsigned int  playerNumber;
+    const char *Name;
 } T_player;
 
 void Game_NewGame(); //lance une nouvelle partie
