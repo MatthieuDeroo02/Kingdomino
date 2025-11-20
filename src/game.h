@@ -13,6 +13,9 @@
 void Game_NewGame();
 /*Arrete la partie en cours*/
 void Game_EndGame(SDL_Window *window, SDL_Renderer *renderer);
+
+
+
 /*Genere les aire de jeu en debut de partie*/
 T_Square* Game_GenerateArea();
 /*Genere un square vide sans couronne*/

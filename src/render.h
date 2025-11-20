@@ -37,7 +37,7 @@ void Render_ChangeSizeAndPosition(T_Button *button, float positionX, float posit
 void Render_IncreasesButtonSize(T_Button *button, float factor);
 /*passe du lobby au plateau de jeu*/
 void Render_StartGame(SDL_Window *window, SDL_Renderer *renderer, unsigned int nbrJoueurs);
-/*Retourne la tableau avec toute les textures des differentes carte*/
-SDL_Texture **Render_GenerateTexture();
+/*Retourne la tableau avec toute les textures de l'aires de jeu*/
+SDL_Texture *Render_GenerateTexture();
 
 #endif

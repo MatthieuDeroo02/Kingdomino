@@ -17,6 +17,10 @@ void Game_NewGame() {
     Game_EndGame(window, renderer);
 }
 
+
+
+
+
 void Game_EndGame(SDL_Window *window, SDL_Renderer *renderer) {
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
