@@ -7,18 +7,16 @@
 #include <stdlib.h>
 #include <SDL3/SDL.h>
 
-typedef struct{
-    T_Square *square;
-} T_Area;
+#define sizeArea 7
 
-typedef struct{
-    T_Area *area;
-    unsigned int points;
-    unsigned int  playerNumber;
-    const char *Name;
-} T_player;
-
-void Game_NewGame(); //lance une nouvelle partie
-void Game_EndGame(SDL_Window *window, SDL_Renderer *renderer); //Arreter la partie
-
+/*Lance une nouvelle partie*/
+void Game_NewGame();
+/*Arrete la partie en cours*/
+void Game_EndGame(SDL_Window *window, SDL_Renderer *renderer);
+/*Genere les aire de jeu en debut de partie*/
+T_Square* Game_GenerateArea();
+/*Genere un square vide sans couronne*/
+T_Square Game_GenerateBasiqueSquare();
+/*accéde au numero de la case en X/Y*/
+unsigned int Game_GetIndiceInArea(unsigned int posX, unsigned int posY);
 #endif

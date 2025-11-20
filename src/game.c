@@ -22,3 +22,22 @@ void Game_EndGame(SDL_Window *window, SDL_Renderer *renderer) {
     SDL_DestroyRenderer(renderer);
     SDL_Quit();
 }
+
+T_Square* Game_GenerateArea() {
+    T_Square *area = malloc(sizeArea * sizeArea * sizeof(T_Square));
+    for (unsigned int i = 0; i < (sizeArea*sizeArea); i++) {
+        area[i] = Game_GenerateBasiqueSquare();
+    }
+    area[Game_GetIndiceInArea(3, 3)].biome = King;
+    return area;
+}
+
+T_Square Game_GenerateBasiqueSquare() {
+    T_Square square = {EmptySpace, 0};
+    return square;
+}
+
+unsigned int Game_GetIndiceInArea(unsigned int posX, unsigned int posY) {
+    unsigned int indice = posY*sizeArea + posX;
+    return indice;
+}
