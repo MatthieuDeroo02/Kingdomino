@@ -13,7 +13,7 @@ void Game_NewGame() {
     Render_StartGame(window, renderer, nbrJoueurs);
 
     printf("Il y a %d Joueurs.\n", nbrJoueurs);
-    SDL_Delay(100000); //Pause de 2 secondes avant de fermer la fenêtre
+    SDL_Delay(2000); //Pause de 2 secondes avant de fermer la fenêtre
     Game_EndGame(window, renderer);
 }
 
