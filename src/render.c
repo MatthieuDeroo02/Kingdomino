@@ -48,7 +48,7 @@ SDL_Texture *Render_LoadAndConvertImage(const char *cheminImage, SDL_Window *win
 }
 
 
-
+/*
 unsigned int Render_AfficherLobby(SDL_Window *window, SDL_Renderer *renderer) {
     SDL_Texture *fond = Render_LoadAndConvertImage("assets/images/fond_ecran_lobby2.bmp", window, renderer); //Crée la texture du fond d'ecran
 
@@ -107,6 +107,7 @@ unsigned int Render_AfficherLobby(SDL_Window *window, SDL_Renderer *renderer) {
 
     return 0;
 }
+*/
 
 
 void Render_AddButton(T_Assets* assets, SDL_Renderer *renderer,const char *name, const char *cheminImage, float positionX, float positionY, float sizeX, float sizeY) {
