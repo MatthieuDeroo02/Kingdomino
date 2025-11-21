@@ -33,10 +33,7 @@ SDL_Texture *Render_LoadAndConvertImage(const char *cheminImage, SDL_Window *win
     SDL_Surface *surface = SDL_LoadBMP(cheminImage);
     if (!surface) {
         SDL_Log("Erreur chargement image : %s", SDL_GetError());
-        SDL_DestroyRenderer(renderer);
-        SDL_DestroyWindow(window);
-        SDL_Quit();
-        exit(EXIT_FAILURE);
+        Game_EndGame(window, renderer, 2);
     }
 
     SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface);
@@ -44,10 +41,7 @@ SDL_Texture *Render_LoadAndConvertImage(const char *cheminImage, SDL_Window *win
 
     if (!texture) {
         SDL_Log("Erreur création texture : %s", SDL_GetError());
-        SDL_DestroyRenderer(renderer);
-        SDL_DestroyWindow(window);
-        SDL_Quit();
-        exit(EXIT_FAILURE);
+        Game_EndGame(window, renderer, 2);
     }
 
     return texture;

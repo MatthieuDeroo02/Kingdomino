@@ -7,24 +7,25 @@ void Game_NewGame() {
     SDL_Renderer *renderer = Render_CreatRenderer(window); //Crée le moteur graphique
     unsigned int nbrJoueurs = Render_AfficherLobby(window, renderer);
     if (nbrJoueurs == 0) { //Si on appuis sur la croix
-        Game_EndGame(window, renderer);
+        Game_EndGame(window, renderer, 1);
     }
-
     Render_StartGame(window, renderer, nbrJoueurs);
 
     printf("Il y a %d Joueurs.\n", nbrJoueurs);
     SDL_Delay(2000); //Pause de 2 secondes avant de fermer la fenêtre
-    Game_EndGame(window, renderer);
+    Game_EndGame(window, renderer, 1);
 }
 
 
 
 
 
-void Game_EndGame(SDL_Window *window, SDL_Renderer *renderer) {
+void Game_EndGame(SDL_Window *window, SDL_Renderer *renderer, unsigned int Close) {
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
     SDL_Quit();
+    if (Close == 1) exit(EXIT_SUCCESS);
+    if (Close == 2) exit(EXIT_FAILURE);
 }
 
 T_Square* Game_GenerateArea() {

@@ -40,4 +40,5 @@ void Render_StartGame(SDL_Window *window, SDL_Renderer *renderer, unsigned int n
 /*Retourne la tableau avec toute les textures de l'aires de jeu*/
 SDL_Texture *Render_GenerateTexture();
 
+SDL_Texture *Render_GenerateGameBoard();
 #endif

@@ -11,8 +11,8 @@
 
 /*Lance une nouvelle partie*/
 void Game_NewGame();
-/*Arrete la partie en cours*/
-void Game_EndGame(SDL_Window *window, SDL_Renderer *renderer);
+/*Arrete la partie en cours, Close : 0->continue, 1->Exit_Success, 2->Exit_Failure*/
+void Game_EndGame(SDL_Window *window, SDL_Renderer *renderer, unsigned int Close);
 
 
 
