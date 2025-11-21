@@ -41,4 +41,6 @@ void Render_StartGame(SDL_Window *window, SDL_Renderer *renderer, unsigned int n
 SDL_Texture *Render_GenerateTexture();
 /*Genere la plateau de jeu basique avec le fond et les 4 royaume des chateau*/
 SDL_Texture *Render_GenerateGeneralGameBoard(SDL_Renderer *renderer);
+/*Controlle la fermeture des rideau de nuage en 60fps*/
+void Render_AnimateCloudCurtain(SDL_Window *window, SDL_Renderer *renderer,SDL_Texture *wallpaper, unsigned int nbrFrame, bool hidden);
 #endif
