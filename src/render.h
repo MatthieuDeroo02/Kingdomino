@@ -39,6 +39,6 @@ void Render_IncreasesButtonSize(T_Button *button, float factor);
 void Render_StartGame(SDL_Window *window, SDL_Renderer *renderer, unsigned int nbrJoueurs);
 /*Retourne la tableau avec toute les textures de l'aires de jeu*/
 SDL_Texture *Render_GenerateTexture();
-
-SDL_Texture *Render_GenerateGameBoard();
+/*Genere la plateau de jeu basique avec le fond et les 4 royaume des chateau*/
+SDL_Texture *Render_GenerateGeneralGameBoard(SDL_Renderer *renderer);
 #endif

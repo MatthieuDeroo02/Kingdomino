@@ -180,3 +180,8 @@ void Render_StartGame(SDL_Window *window, SDL_Renderer *renderer, unsigned int n
     SDL_DestroyTexture(cloud_left_texture);
     SDL_DestroyTexture(cloud_right_texture);
 }
+
+SDL_Texture *Render_GenerateGeneralGameBoard(SDL_Renderer *renderer) {
+    SDL_Texture *wallpaper = IMG_LoadTexture(renderer, "assets/images/InGameWallpaper.png");
+    return wallpaper;
+}
