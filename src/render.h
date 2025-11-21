@@ -8,11 +8,43 @@
 #include "game.h"
 
 typedef struct{
-    const char *cheminImage;
+    const char *name;
     bool overhead;
     SDL_FRect rectangle;
     SDL_Texture *texture;
 } T_Button;
+
+typedef struct {
+    SDL_Texture *texture;
+} T_Wallpaper;
+
+typedef struct {
+    const char *name;
+    SDL_Texture *texture;
+    SDL_FRect rectangle;
+} T_Overlay;
+
+typedef struct {
+    T_Wallpaper wallpaper;
+    T_Button *listButton;
+    unsigned int nbrButton;
+    T_Overlay *listOverlay;
+    unsigned int nbrOverlay;
+} T_Assets;
+
+
+/*
+typedef struct{
+    char* PictureObjectName;
+
+    T_Button* PtrOf_PictureObject;
+} ItemOf_PictureObject
+
+ItemOf_PictureObject ** ArrayOf_PictureObject;
+
+ItemOf_PictureObject* get_PictureObject(char* get_PictureObjectName);
+void add_PictureObject(char * new_PictureObjectName, T_Button* New_PtrOf_PictureObject)
+*/
 
 
 /*Initialise SDL video*/
@@ -27,8 +59,14 @@ SDL_Texture *Render_LoadAndConvertImage(const char *cheminImage, SDL_Window *win
 /*affiche le lobby et retourne le nombre de joueur choisie*/
 unsigned int Render_AfficherLobby(SDL_Window *window, SDL_Renderer *renderer);
 
-/*Crée un Button qui pouras etre utilisé plus tard*/
-T_Button Render_AddButton(SDL_Renderer *renderer, const char *cheminImage, float positionX, float positionY, float sizeX, float sizeY);
+
+/*Crée un Button et l'ajoute au assets qui pouras etre utilisé plus tard*/
+void Render_AddButton(T_Assets* assets, SDL_Renderer *renderer,const char *name, const char *cheminImage, float positionX, float positionY, float sizeX, float sizeY);
+/*Crée le fond ecran et l'ajoute aux assets*/
+void Render_AddWallpaper(T_Assets* assets, SDL_Renderer *renderer, const char *cheminImage);
+/*Reset l'entiereter des assets*/
+void Render_ResetAllAssets(T_Assets* assets);
+
 /*Returne true si le Button est survolé*/
 bool Render_ButtonOverhead(T_Button button);
 //*Change la taille et la position d'un bouton*/
@@ -41,8 +79,9 @@ void Render_StartGame(SDL_Window *window, SDL_Renderer *renderer, unsigned int n
 SDL_Texture *Render_GenerateTexture();
 /*Genere la plateau de jeu basique avec le fond et les 4 royaume des chateau*/
 SDL_Texture *Render_GenerateGeneralGameBoard(SDL_Renderer *renderer);
+
 /*Controlle la fermeture des rideau de nuage en 60fps*/
 void Render_AnimateCloudCurtain(SDL_Window *window, SDL_Renderer *renderer,SDL_Texture *wallpaper, unsigned int nbrFrame, bool hidden);
-/*Génere et ajoute le fond ecran au renderer le fond ecran*/
-void Render_AddWallpaper(SDL_Window *window, SDL_Renderer *renderer, const char *chemin_image);
+
+
 #endif
