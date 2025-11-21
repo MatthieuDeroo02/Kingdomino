@@ -43,4 +43,6 @@ SDL_Texture *Render_GenerateTexture();
 SDL_Texture *Render_GenerateGeneralGameBoard(SDL_Renderer *renderer);
 /*Controlle la fermeture des rideau de nuage en 60fps*/
 void Render_AnimateCloudCurtain(SDL_Window *window, SDL_Renderer *renderer,SDL_Texture *wallpaper, unsigned int nbrFrame, bool hidden);
+/*Génere et ajoute le fond ecran au renderer le fond ecran*/
+void Render_AddWallpaper(SDL_Window *window, SDL_Renderer *renderer, const char *chemin_image);
 #endif

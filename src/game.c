@@ -17,6 +17,9 @@ void Game_NewGame() {
 }
 
 
+void Game_Lobby(SDL_Window *window, SDL_Renderer *renderer, unsigned int* nbrJoueur) {
+    
+}
 
 
 

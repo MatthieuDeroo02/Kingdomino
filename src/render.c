@@ -47,6 +47,8 @@ SDL_Texture *Render_LoadAndConvertImage(const char *cheminImage, SDL_Window *win
     return texture;
 }
 
+
+
 unsigned int Render_AfficherLobby(SDL_Window *window, SDL_Renderer *renderer) {
     SDL_Texture *fond = Render_LoadAndConvertImage("assets/images/fond_ecran_lobby2.bmp", window, renderer); //Crée la texture du fond d'ecran
 
@@ -146,41 +148,6 @@ void Render_IncreasesButtonSize(T_Button *button, float factor) {
     button->rectangle.y -= (button->rectangle.h - tmpSizeY)/2;
 }
 
-void Render_StartGame(SDL_Window *window, SDL_Renderer *renderer, unsigned int nbrJoueurs) {
-    SDL_Texture *cloud_right_texture = IMG_LoadTexture(renderer, "assets/images/cloud_Right.png");
-    SDL_Texture *cloud_left_texture = IMG_LoadTexture(renderer, "assets/images/cloud_Left.png");
-
-    int largeur_window, hauteur_window;
-    SDL_GetRenderOutputSize(renderer, &largeur_window, &hauteur_window);
-
-    float position_cloud_left = 0; //1536 longueur de l'image
-    float position_cloud_right = largeur_window;
-
-    unsigned int nbrFrame = 60*2;
-
-    float vitesse_cloud_left = ((4*largeur_window/5) - position_cloud_left)/(nbrFrame); //En pixel/frame = distanceParcourue/(fps*senconde du rendu)
-    float vitesse_cloud_right = (position_cloud_right - (largeur_window/5))/(nbrFrame);
-
-    for (int frame = 0; frame < nbrFrame; frame++) {
-        SDL_GetRenderOutputSize(renderer, &largeur_window, &hauteur_window);
-
-        position_cloud_left = vitesse_cloud_left*frame;
-        position_cloud_right = largeur_window - vitesse_cloud_right*frame;
-
-        SDL_FRect rectangle_cloud_left = {position_cloud_left-1536,-10, 1536, hauteur_window+20}; //x, y, w, h
-        SDL_FRect rectangle_cloud_right = {position_cloud_right,-10, 1536, hauteur_window+20};
-
-        SDL_RenderTexture(renderer, cloud_right_texture, NULL, &rectangle_cloud_right);
-        SDL_RenderTexture(renderer, cloud_left_texture, NULL, &rectangle_cloud_left);
-
-        SDL_RenderPresent(renderer);
-        SDL_Delay(16);  // ~60 FPS
-    }
-    SDL_Delay(2000);
-    SDL_DestroyTexture(cloud_left_texture);
-    SDL_DestroyTexture(cloud_right_texture);
-}
-
 SDL_Texture *Render_GenerateGeneralGameBoard(SDL_Renderer *renderer) {
     SDL_Texture *wallpaper = IMG_LoadTexture(renderer, "assets/images/InGameWallpaper.png");
     return wallpaper;
@@ -228,4 +195,6 @@ void Render_AnimateCloudCurtain(SDL_Window *window, SDL_Renderer *renderer,SDL_T
         SDL_RenderPresent(renderer);
         SDL_Delay(16);  // ~60 FPS
     }
+    SDL_DestroyTexture(cloud_left_texture);
+    SDL_DestroyTexture(cloud_right_texture);
 }
