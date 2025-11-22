@@ -74,11 +74,10 @@ void Render_RenderScene(SDL_Window *window, SDL_Renderer *renderer, T_Assets *as
     int largeur_window, hauteur_window;
     SDL_GetRenderOutputSize(renderer, &largeur_window, &hauteur_window);
 
-    //Nettoie le renderer
     SDL_RenderClear(renderer);
-    //Affiche le fond d'ecran
+    
     SDL_RenderTexture(renderer, assets->wallpaper.texture, NULL, NULL);
-    //Affiche les Overlay
+
     for (unsigned int i=0; i<assets->nbrOverlay; i++) {
         SDL_FRect rectangle;
         rectangle.x = largeur_window * assets->listOverlay[i].posX;
@@ -87,10 +86,10 @@ void Render_RenderScene(SDL_Window *window, SDL_Renderer *renderer, T_Assets *as
         rectangle.h = hauteur_window * assets->listOverlay[i].hauteur;
         SDL_RenderTexture(renderer, assets->listOverlay[i].texture, NULL, &rectangle);
     }
-    //Affiche les Bouton
+    
     for (unsigned int i=0; i<assets->nbrButton; i++) {
         SDL_FRect rectangle;
-        if (Render_ButtonOverhead(renderer, &assets->listButton[i])) {
+        if (Render_ButtonOverhead(renderer, &assets->listButton[i])==true) {
             rectangle.w = assets->listButton[i].largeur * largeur_window * assets->listButton[i].over_scale;
             rectangle.h = assets->listButton[i].hauteur * hauteur_window * assets->listButton[i].over_scale;
             rectangle.x = assets->listButton[i].posX * largeur_window - ((rectangle.w - assets->listButton[i].largeur * largeur_window)/2);
@@ -101,7 +100,8 @@ void Render_RenderScene(SDL_Window *window, SDL_Renderer *renderer, T_Assets *as
             rectangle.w = largeur_window * assets->listButton[i].largeur;
             rectangle.h = hauteur_window * assets->listButton[i].hauteur;
         }
-        SDL_RenderTexture(renderer, assets->listOverlay[i].texture, NULL, &rectangle);
+
+        SDL_RenderTexture(renderer, assets->listButton[i].texture, NULL, &rectangle);
     }
     SDL_RenderPresent(renderer);
 }
