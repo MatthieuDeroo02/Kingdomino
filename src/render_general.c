@@ -29,23 +29,14 @@ SDL_Renderer *Render_CreatRenderer(SDL_Window *window) {
     return renderer;
 }
 
-SDL_Texture *Render_LoadAndConvertImage(const char *cheminImage, SDL_Window *window, SDL_Renderer *renderer) {
-    SDL_Surface *surface = SDL_LoadBMP(cheminImage);
-    if (!surface) {
-        SDL_Log("Erreur chargement image : %s", SDL_GetError());
-        Game_EndGame(window, renderer, 2);
-    }
 
-    SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface);
-    SDL_DestroySurface(surface);
 
-    if (!texture) {
-        SDL_Log("Erreur création texture : %s", SDL_GetError());
-        Game_EndGame(window, renderer, 2);
-    }
 
-    return texture;
-}
+
+
+
+
+
 
 
 /*
@@ -110,59 +101,22 @@ unsigned int Render_AfficherLobby(SDL_Window *window, SDL_Renderer *renderer) {
 */
 
 
-void Render_AddButton(T_Assets* assets, SDL_Renderer *renderer,const char *name, const char *cheminImage, float positionX, float positionY, float sizeX, float sizeY) {
-    assets->listButton = realloc(assets->listButton, (assets->nbrButton+1) * sizeof(T_Button));
-    assets->listButton[assets->nbrButton].overhead = 0;
-    assets->listButton[assets->nbrButton].name = name;
-    assets->listButton[assets->nbrButton].rectangle.x = positionX;
-    assets->listButton[assets->nbrButton].rectangle.y = positionY;
-    assets->listButton[assets->nbrButton].rectangle.w = sizeX;
-    assets->listButton[assets->nbrButton].rectangle.h = sizeY;
-    assets->listButton[assets->nbrButton].texture = IMG_LoadTexture(renderer, cheminImage);
-    assets->nbrButton++;
-}
 
-void Render_AddWallpaper(T_Assets* assets, SDL_Renderer *renderer, const char *cheminImage) {
-    assets->wallpaper.texture = IMG_LoadTexture(renderer, cheminImage);
-}
 
-void Render_ResetAllAssets(T_Assets* assets) {
-    //Detruit le fond ecran
-    SDL_DestroyTexture(assets->wallpaper.texture);
-    //Detruit les buttons
-    for (unsigned int i=0; i<assets->nbrButton; i++) {
-        SDL_DestroyTexture(assets->listButton[i].texture);
-    }
-    free(assets->listButton);
-    assets->nbrButton = 0;
-    //Detruit les images
-    for (unsigned int i=0; i<assets->nbrOverlay; i++) {
-        SDL_DestroyTexture(assets->listOverlay[i].texture);
-    }
-    free(assets->listOverlay);
-    assets->nbrOverlay = 0;
-}
-
-void Render_AddOverlay(T_Assets* assets, SDL_Renderer *renderer,const char *name, const char *cheminImage, float positionX, float positionY, float sizeX, float sizeY) {
-    assets->listOverlay = realloc(assets->listOverlay, (assets->nbrOverlay+1) * sizeof(T_Overlay));
-    assets->listOverlay[assets->nbrOverlay].name = name;
-    assets->listOverlay[assets->nbrOverlay].rectangle.x = positionX;
-    assets->listOverlay[assets->nbrOverlay].rectangle.y = positionY;
-    assets->listOverlay[assets->nbrOverlay].rectangle.w = sizeX;
-    assets->listOverlay[assets->nbrOverlay].rectangle.h = sizeY;
-    assets->listOverlay[assets->nbrOverlay].texture = IMG_LoadTexture(renderer, cheminImage);
-    assets->nbrOverlay++;
-}
-
-bool Render_ButtonOverhead(T_Button button) {
+bool Render_ButtonOverhead(SDL_Renderer *renderer, T_Button* button) {
+    int largeur_window, hauteur_window;
+    SDL_GetRenderOutputSize(renderer, &largeur_window, &hauteur_window);
     float mouseX, mouseY;
     SDL_GetMouseState(&mouseX, &mouseY);
-    if (button.rectangle.x <= mouseX && mouseX <= button.rectangle.x + button.rectangle.w && button.rectangle.y <= mouseY && mouseY <= button.rectangle.y + button.rectangle.h) {
+    if (button->posX*largeur_window <= mouseX && mouseX <= (button->posX + button->largeur)*largeur_window && button->posY*hauteur_window <= mouseY && mouseY <= (button->posY+button->hauteur)*hauteur_window) {
+        button->overhead=true;    
         return true;
     }
+    button->overhead=false;
     return false;
 }
 
+/*
 void Render_ChangeSizeAndPosition(T_Button *button, float positionX, float positionY, float sizeX, float sizeY) {
     button->rectangle.x = positionX;
     button->rectangle.y = positionY;
@@ -185,6 +139,7 @@ SDL_Texture *Render_GenerateGeneralGameBoard(SDL_Renderer *renderer) {
     SDL_Texture *wallpaper = IMG_LoadTexture(renderer, "assets/images/InGameWallpaper.png");
     return wallpaper;
 }
+*/
 
 void Render_AnimateCloudCurtain(SDL_Window *window, SDL_Renderer *renderer,SDL_Texture *wallpaper, unsigned int nbrFrame, bool hidden) {
     SDL_Texture *cloud_right_texture = IMG_LoadTexture(renderer, "assets/images/cloud_Right.png");
