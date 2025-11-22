@@ -27,3 +27,12 @@ unsigned int Game_GetIndiceInArea(unsigned int posX, unsigned int posY) {
     unsigned int indice = posY*sizeArea + posX;
     return indice;
 }
+
+char *Game_ButtonPressed(const T_Assets *assets) {
+    for (unsigned int i=0; i<assets->nbrButton; i++) {
+        if (assets->listButton[i].overhead == true) {
+            return assets->listButton[i].name;
+        }
+    }
+    return NULL;
+}

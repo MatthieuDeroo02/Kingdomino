@@ -17,6 +17,8 @@ void Game_EndGame(SDL_Window *window, SDL_Renderer *renderer, T_Assets* assets, 
 /*Fonction du lobby*/
 void Game_Lobby(SDL_Window *window, SDL_Renderer *renderer, T_Assets assets, unsigned int* nbrJoueur);
 
+/*Return le nom du boutton pressé*/
+char *Game_ButtonPressed(const T_Assets *assets);
 
 /*Genere les aire de jeu en debut de partie*/
 T_Square* Game_GenerateArea();
