@@ -5,11 +5,12 @@
 #include <SDL3_image/SDL_image.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include "game.h"
+#include <game.h>
 
 typedef struct{
-    const char *name;
+    char *name;
     bool overhead;
+    float hover_scale;
     SDL_FRect rectangle;
     SDL_Texture *texture;
 } T_Button;
@@ -19,7 +20,7 @@ typedef struct {
 } T_Wallpaper;
 
 typedef struct {
-    const char *name;
+    char *name;
     SDL_Texture *texture;
     SDL_FRect rectangle;
 } T_Overlay;
@@ -61,11 +62,16 @@ unsigned int Render_AfficherLobby(SDL_Window *window, SDL_Renderer *renderer);
 
 
 /*Crée un Button et l'ajoute au assets qui pouras etre utilisé plus tard*/
-void Render_AddButton(T_Assets* assets, SDL_Renderer *renderer,const char *name, const char *cheminImage, float positionX, float positionY, float sizeX, float sizeY);
-/*Crée le fond ecran et l'ajoute aux assets*/
+void Render_AddButton(T_Assets* assets, SDL_Renderer *renderer,const char *name, const char *cheminImage, float positionX, float positionY, float sizeX, float sizeY, float over_scale);
+/*Crée le fond ecran, suprimme l'ancien et l'ajoute aux assets*/
 void Render_AddWallpaper(T_Assets* assets, SDL_Renderer *renderer, const char *cheminImage);
 /*Reset l'entiereter des assets*/
 void Render_ResetAllAssets(T_Assets* assets);
+/*Detruit le bouton demander*/
+void Render_DestroyButton(T_Assets *assets, const char *name);
+
+
+
 
 /*Returne true si le Button est survolé*/
 bool Render_ButtonOverhead(T_Button button);
