@@ -1,31 +1,9 @@
-#include <SDL3/SDL.h>
 #include "game.h"
 
-void Game_NewGame() {
-    Render_InitVideo();
-    SDL_Window *window = Render_Creat_Window("Kingdomino", 1280, 720);
-    SDL_Renderer *renderer = Render_CreatRenderer(window); //Crée le moteur graphique
-    unsigned int nbrJoueurs = Render_AfficherLobby(window, renderer);
-    if (nbrJoueurs == 0) { //Si on appuis sur la croix
-        Game_EndGame(window, renderer, 1);
-    }
-    Render_StartGame(window, renderer, nbrJoueurs);
-
-    printf("Il y a %d Joueurs.\n", nbrJoueurs);
-    SDL_Delay(2000); //Pause de 2 secondes avant de fermer la fenêtre
-    Game_EndGame(window, renderer, 1);
-}
-
-
-void Game_Lobby(SDL_Window *window, SDL_Renderer *renderer, unsigned int* nbrJoueur) {
-    
-}
-
-
-
-void Game_EndGame(SDL_Window *window, SDL_Renderer *renderer, unsigned int Close) {
+void Game_EndGame(SDL_Window *window, SDL_Renderer *renderer, T_Assets* assets, unsigned int Close) {
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
+    Render_ResetAllAssets(assets);
     SDL_Quit();
     if (Close == 1) exit(EXIT_SUCCESS);
     if (Close == 2) exit(EXIT_FAILURE);

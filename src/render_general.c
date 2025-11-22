@@ -103,15 +103,20 @@ unsigned int Render_AfficherLobby(SDL_Window *window, SDL_Renderer *renderer) {
 
 
 
-bool Render_ButtonOverhead(T_Button button) {
+bool Render_ButtonOverhead(SDL_Renderer *renderer, T_Button* button) {
+    int largeur_window, hauteur_window;
+    SDL_GetRenderOutputSize(renderer, &largeur_window, &hauteur_window);
     float mouseX, mouseY;
     SDL_GetMouseState(&mouseX, &mouseY);
-    if (button.rectangle.x <= mouseX && mouseX <= button.rectangle.x + button.rectangle.w && button.rectangle.y <= mouseY && mouseY <= button.rectangle.y + button.rectangle.h) {
+    if (button->posX*largeur_window <= mouseX && mouseX <= (button->posX + button->largeur)*largeur_window && button->posY*hauteur_window <= mouseY && mouseY <= (button->posY+button->hauteur)*hauteur_window) {
+        button->overhead=true;    
         return true;
     }
+    button->overhead=false;
     return false;
 }
 
+/*
 void Render_ChangeSizeAndPosition(T_Button *button, float positionX, float positionY, float sizeX, float sizeY) {
     button->rectangle.x = positionX;
     button->rectangle.y = positionY;
@@ -134,6 +139,7 @@ SDL_Texture *Render_GenerateGeneralGameBoard(SDL_Renderer *renderer) {
     SDL_Texture *wallpaper = IMG_LoadTexture(renderer, "assets/images/InGameWallpaper.png");
     return wallpaper;
 }
+*/
 
 void Render_AnimateCloudCurtain(SDL_Window *window, SDL_Renderer *renderer,SDL_Texture *wallpaper, unsigned int nbrFrame, bool hidden) {
     SDL_Texture *cloud_right_texture = IMG_LoadTexture(renderer, "assets/images/cloud_Right.png");
