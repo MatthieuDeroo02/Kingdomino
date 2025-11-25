@@ -29,7 +29,17 @@ SDL_Renderer *Render_CreatRenderer(SDL_Window *window) {
     return renderer;
 }
 
+SDL_Texture *Render_CaptureScreen(SDL_Renderer *renderer) {
+    int largeur_window, hauteur_window;
+    SDL_GetRenderOutputSize(renderer, &largeur_window, &hauteur_window);
 
+    SDL_Rect rect = {0, 0, largeur_window, hauteur_window}; //definit la zone a capturer
+
+    SDL_Surface *surface = SDL_RenderReadPixels(renderer, &rect);
+    
+
+    return SDL_CreateTextureFromSurface(renderer, surface);
+}
 
 
 
