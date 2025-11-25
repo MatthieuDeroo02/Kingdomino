@@ -89,6 +89,8 @@ bool Render_ButtonOverhead(SDL_Renderer *renderer, T_Button* button);
 /*Controlle la fermeture des rideau de nuage en 60fps*/
 void Render_AnimateCloudCurtain(SDL_Window *window, SDL_Renderer *renderer,SDL_Texture *wallpaper, unsigned int nbrFrame, bool hidden);
 
+/*Crée une texture a partire ce qu'il y a à l'ecran*/
+SDL_Texture *Render_CaptureScreen(SDL_Renderer *renderer);
 
 /*Change la taille et la position d'un bouton*/
 //void Render_ChangeSizeAndPosition(T_Button *button, float positionX, float positionY, float sizeX, float sizeY);

@@ -43,5 +43,10 @@ void Game_Lobby(SDL_Window *window, SDL_Renderer *renderer, T_Assets assets, uns
         }
         SDL_Delay(16);  // ~60 FPS
     }
+
+    SDL_Texture *background = Render_CaptureScreen(renderer); //Genere une texture a partir de l'ecran
+    if (background == NULL) Game_EndGame(window, renderer, &assets, 2); //Verifi que la generation a marchée
+
+    Render_AnimateCloudCurtain(window, renderer, background, 120, 1);    
 }
 
