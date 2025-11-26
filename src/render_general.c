@@ -154,12 +154,11 @@ SDL_Texture *Render_GenerateGeneralGameBoard(SDL_Renderer *renderer) {
 void Render_AnimateCloudCurtain(SDL_Window *window, SDL_Renderer *renderer,SDL_Texture *wallpaper, unsigned int nbrFrame, bool hidden) {
     SDL_Texture *cloud_right_texture = IMG_LoadTexture(renderer, "assets/images/cloud_Right.png");
     SDL_Texture *cloud_left_texture = IMG_LoadTexture(renderer, "assets/images/cloud_Left.png");
-    if (cloud_right_texture == NULL) printf("ERROR: Texture failed\n");
-
-    int largeur_nuage = 1280;
 
     int largeur_window, hauteur_window;
     SDL_GetRenderOutputSize(renderer, &largeur_window, &hauteur_window);
+
+    int largeur_nuage = largeur_window;
 
     float position_cloud_left, position_cloud_right, final_position_cloud_left, final_position_cloud_right;
 
@@ -199,5 +198,4 @@ void Render_AnimateCloudCurtain(SDL_Window *window, SDL_Renderer *renderer,SDL_T
     }
     SDL_DestroyTexture(cloud_left_texture);
     SDL_DestroyTexture(cloud_right_texture);
-    SDL_DestroyTexture(wallpaper);
 }

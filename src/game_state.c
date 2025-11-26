@@ -50,13 +50,24 @@ void Game_Lobby(SDL_Window *window, SDL_Renderer *renderer, T_Assets assets, uns
     if (background == NULL) Game_EndGame(window, renderer, &assets, 2); //Verifi que la generation a marchée
 
     Render_AnimateCloudCurtain(window, renderer, background, 120, true); //Ferme le lobby avec les nuages
+
+    SDL_DestroyTexture(background);
     Render_ResetAllAssets(&assets);
 }
 
 void Game_StartParty(SDL_Window *window, SDL_Renderer *renderer, T_Assets assets, unsigned int nbrJoueur) {
     Render_AddWallpaper(&assets, renderer, "assets/images/InGameWallpaper.png");
     Render_AnimateCloudCurtain(window, renderer, assets.wallpaper.texture, 120, false); //Ferme le lobby avec les nuages
-    SDL_Delay(500);
+    
+    while (true) {
+        Render_RenderScene(window, renderer, &assets);
+
+        SDL_Event event; //Contient les événement SDL
+        SDL_PollEvent(&event);
+        if (event.type == SDL_EVENT_QUIT) {
+            Game_EndGame(window, renderer, &assets, 1);
+        }
+    }
 
     Render_ResetAllAssets(&assets);
 }
