@@ -9,6 +9,8 @@ void Game_NewGame() {
     /*Lance une partie avec le lobby*/
     unsigned int nbrPlayer;
     Game_Lobby(window, renderer,assets, &nbrPlayer);
+    SDL_Delay(500);
+    Game_StartParty(window, renderer,assets, nbrPlayer);
 
     Game_EndGame(window, renderer, &assets, 1);
 }
@@ -47,6 +49,14 @@ void Game_Lobby(SDL_Window *window, SDL_Renderer *renderer, T_Assets assets, uns
     SDL_Texture *background = Render_CaptureScreen(renderer); //Genere une texture a partir de l'ecran
     if (background == NULL) Game_EndGame(window, renderer, &assets, 2); //Verifi que la generation a marchée
 
-    Render_AnimateCloudCurtain(window, renderer, background, 120, 1);    
+    Render_AnimateCloudCurtain(window, renderer, background, 120, true); //Ferme le lobby avec les nuages
+    Render_ResetAllAssets(&assets);
 }
 
+void Game_StartParty(SDL_Window *window, SDL_Renderer *renderer, T_Assets assets, unsigned int nbrJoueur) {
+    Render_AddWallpaper(&assets, renderer, "assets/images/InGameWallpaper.png");
+    Render_AnimateCloudCurtain(window, renderer, assets.wallpaper.texture, 120, false); //Ferme le lobby avec les nuages
+    SDL_Delay(500);
+
+    Render_ResetAllAssets(&assets);
+}

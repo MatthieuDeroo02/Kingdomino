@@ -154,6 +154,7 @@ SDL_Texture *Render_GenerateGeneralGameBoard(SDL_Renderer *renderer) {
 void Render_AnimateCloudCurtain(SDL_Window *window, SDL_Renderer *renderer,SDL_Texture *wallpaper, unsigned int nbrFrame, bool hidden) {
     SDL_Texture *cloud_right_texture = IMG_LoadTexture(renderer, "assets/images/cloud_Right.png");
     SDL_Texture *cloud_left_texture = IMG_LoadTexture(renderer, "assets/images/cloud_Left.png");
+    if (cloud_right_texture == NULL) printf("ERROR: Texture failed\n");
 
     int largeur_nuage = 1280;
 
@@ -161,16 +162,19 @@ void Render_AnimateCloudCurtain(SDL_Window *window, SDL_Renderer *renderer,SDL_T
     SDL_GetRenderOutputSize(renderer, &largeur_window, &hauteur_window);
 
     float position_cloud_left, position_cloud_right, final_position_cloud_left, final_position_cloud_right;
+
     if (hidden == true) {
         position_cloud_left = -largeur_nuage;
+        final_position_cloud_left = 4*largeur_window/5 - largeur_nuage;
+
         position_cloud_right = largeur_window;
-        final_position_cloud_left = largeur_window/2 - largeur_nuage;
-        final_position_cloud_right = largeur_window/2;
+        final_position_cloud_right = 2*largeur_window/5;
     } else {
         final_position_cloud_left = -largeur_nuage;
+        position_cloud_left = 4*largeur_window/5 - largeur_nuage;
+
         final_position_cloud_right = largeur_window;
-        position_cloud_left = largeur_window/2 - largeur_nuage;
-        position_cloud_right = largeur_window/2;
+        position_cloud_right = 2*largeur_window/5;
     }
 
     for (int i=0; i<nbrFrame; i++) {
@@ -183,16 +187,17 @@ void Render_AnimateCloudCurtain(SDL_Window *window, SDL_Renderer *renderer,SDL_T
         position_cloud_right += vitesse_cloud_right;
 
         //on affiche
-        SDL_FRect rectangle_cloud_left = {position_cloud_left-largeur_nuage,-10, largeur_nuage, hauteur_window+20}; //x, y, w, h
-        SDL_FRect rectangle_cloud_right = {position_cloud_right,-10, largeur_nuage, hauteur_window+20};
+        SDL_FRect rectangle_cloud_left = {position_cloud_left,-10, largeur_window, hauteur_window+20}; //x, y, w, h
+        SDL_FRect rectangle_cloud_right = {position_cloud_right,-10, largeur_window, hauteur_window+20};
 
         SDL_RenderTexture(renderer, wallpaper, NULL, NULL);
-        SDL_RenderTexture(renderer, cloud_right_texture, NULL, &rectangle_cloud_right);
         SDL_RenderTexture(renderer, cloud_left_texture, NULL, &rectangle_cloud_left);
+        SDL_RenderTexture(renderer, cloud_right_texture, NULL, &rectangle_cloud_right);
 
         SDL_RenderPresent(renderer);
         SDL_Delay(16);  // ~60 FPS
     }
     SDL_DestroyTexture(cloud_left_texture);
     SDL_DestroyTexture(cloud_right_texture);
+    SDL_DestroyTexture(wallpaper);
 }

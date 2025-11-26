@@ -1,6 +1,7 @@
 #ifndef DOMINO_H
 #define DOMINO_H
 
+#include <stdlib.h>
 
 #define EmptySpace 0
 #define King 1
